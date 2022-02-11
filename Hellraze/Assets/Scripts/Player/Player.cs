@@ -27,9 +27,34 @@ public class Player : MonoBehaviour {
     public GameObject playerCamera;
     public GameObject playerBody;
 
-    private void Update() {
+    public Weapon currentWeapon;
+    public Transform weaponHolder;
+
+    private void Start() {
 
         //
+
+    }
+
+    private void Update() {
+
+        if(currentWeapon != null && Input.GetMouseButtonDown(0)) {
+
+            currentWeapon.Shoot();
+
+        }
+
+        if(currentWeapon != null && Input.GetKeyDown(KeyCode.R)) {
+
+            StartCoroutine(currentWeapon.Reload());
+
+        }
+
+    }
+
+    public void InstantiateWeapon(GameObject weapon) {
+
+        currentWeapon = Instantiate(weapon, weaponHolder).GetComponent<Weapon>();
 
     }
 
