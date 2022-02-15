@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
 
+    [SerializeField] private bool melee;
+
     [Header("Firing")]
     [SerializeField] private int damage;
     [SerializeField] private int maxDistance;
@@ -30,7 +32,11 @@ public class Weapon : MonoBehaviour {
         if(ammo <= 0) { emptyClip.Play(); return; }
         if(!canShoot) { return; }
 
-        ammo--;
+        if (!melee) {
+
+            ammo--;
+
+        }
 
         RaycastHit hit;
 
@@ -53,7 +59,7 @@ public class Weapon : MonoBehaviour {
 
     public IEnumerator Reload() {
 
-        if (ammo < maxAmmo && ammoInInventory != 0) {
+        if (ammo < maxAmmo && ammoInInventory != 0 && !melee) {
 
             canShoot = false;
 
